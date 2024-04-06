@@ -2,11 +2,11 @@ import axios from "axios";
 import React, { useEffect,useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
-export default function ViewUser() {
-  const [user, setUser] = useState({
+export default function ViewSupplier() {
+  const [supplier, setSupplier] = useState({
     name: "",
-    username: "",
-    email: "",
+    contactNumber: "",
+    location: "",
   });
 
   const { id } = useParams();
@@ -16,37 +16,37 @@ export default function ViewUser() {
   }, []);
 
   const loadUser = async () => {
-    const result = await axios.get(`http://localhost:8080/users/${id}`);
-    setUser(result.data);
+    const result = await axios.get(`http://localhost:8080/suppliers/${id}`);
+    setSupplier(result.data);
   };
 
   return (
     <div className="container">
       <div className="row">
         <div className="col-md-6 offset-md-3 border rounded p-4 mt-2 shadow">
-          <h2 className="text-center m-4">User Details</h2>
+          <h2 className="text-center m-4">Supplier Details</h2>
 
           <div className="card">
             <div className="card-header">
-              Details of user id : {user.id}
+              Details of user id : {supplier.id}
               <ul className="list-group list-group-flush">
                 <li className="list-group-item">
                   <b>Name:</b>
-                  {user.name}
+                  {supplier.name}
                 </li>
                 <li className="list-group-item">
-                  <b>UserName:</b>
-                  {user.username}
+                  <b>Contact Number:</b>
+                  {supplier.contactNumber}
                 </li>
                 <li className="list-group-item">
-                  <b>Email:</b>
-                  {user.email}
+                  <b>Location:</b>
+                  {supplier.location}
                 </li>
               </ul>
             </div>
           </div>
-          <Link className="btn btn-primary my-2" to={"/"}>
-            Back to Home
+          <Link className="btn btn-primary my-2" to={"/Supplier"}>
+            Back to Suppliers
           </Link>
         </div>
       </div>

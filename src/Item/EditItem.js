@@ -2,22 +2,21 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
-export default function EditUser() {
+export default function EditItem() {
   let navigate = useNavigate();
 
   const { id } = useParams();
 
-  const [user, setUser] = useState({
+  const [item, setUser] = useState({
     name: "",
-    email:"",
-    username: "",
-    role: "",
+    price:"",
+    itemCategory: "",
   });
 
-  const { name, username, email,role } = user;
+  const { name, price, itemCategory } = item;
 
   const onInputChange = (e) => {
-    setUser({ ...user, [e.target.name]: e.target.value });
+    setUser({ ...item, [e.target.name]: e.target.value });
   };
 
   useEffect(() => {
@@ -26,12 +25,12 @@ export default function EditUser() {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    await axios.put(`http://localhost:8080/users/${id}`, user);
-    navigate("/");
+    await axios.put(`http://localhost:8080/items/${id}`, item);
+    navigate("/Item");
   };
 
   const loadUser = async () => {
-    const result = await axios.get(`http://localhost:8080/users/${id}`);
+    const result = await axios.get(`http://localhost:8080/items/${id}`);
     setUser(result.data);
   };
 
@@ -39,7 +38,7 @@ export default function EditUser() {
     <div className="container">
       <div className="row">
         <div className="col-md-6 offset-md-3 border rounded p-4 mt-2 shadow">
-          <h2 className="text-center m-4">Edit User</h2>
+          <h2 className="text-center m-4">Edit Item</h2>
 
           <form onSubmit={(e) => onSubmit(e)}>
             <div className="mb-3">
@@ -49,57 +48,43 @@ export default function EditUser() {
               <input
                 type={"text"}
                 className="form-control"
-                placeholder="Enter your name"
+                placeholder="Enter Item name"
                 name="name"
                 value={name}
                 onChange={(e) => onInputChange(e)}
               />
             </div>
             <div className="mb-3">
-              <label htmlFor="Username" className="form-label">
-                Username
+              <label htmlFor="price" className="form-label">
+                Price
               </label>
               <input
                 type={"text"}
                 className="form-control"
-                placeholder="Enter your username"
-                name="username"
-                value={username}
+                placeholder="Enter Item Price"
+                name="price"
+                value={price}
                 onChange={(e) => onInputChange(e)}
               />
             </div>
             <div className="mb-3">
-              <label htmlFor="Email" className="form-label">
-                E-mail
+              <label htmlFor="price" className="form-label">
+                Item Category
               </label>
               <input
                 type={"text"}
                 className="form-control"
-                placeholder="Enter your e-mail address"
-                name="email"
-                value={email}
+                placeholder="Enter Item Category"
+                name="itemCategory"
+                value={itemCategory}
                 onChange={(e) => onInputChange(e)}
               />
             </div>
-            <div className="mb-3">
-                <label htmlFor="role" className="form-label">
-                   Role
-              </label>
-              <select
-                className="form-select"
-                name="role"
-                value={role}
-                onChange={(e) => onInputChange(e)}
-              >
-                <option value="">Select Role</option>
-                <option value="user">User</option>
-                <option value="admin">Admin</option>
-              </select>
-            </div>
+           
             <button type="submit" className="btn btn-outline-primary">
               Submit
             </button>
-            <Link className="btn btn-outline-danger mx-2" to="/">
+            <Link className="btn btn-outline-danger mx-2" to="/Item">
               Cancel
             </Link>
           </form>

@@ -2,11 +2,10 @@ import axios from "axios";
 import React, { useEffect,useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
-export default function ViewUser() {
-  const [user, setUser] = useState({
-    name: "",
-    username: "",
-    email: "",
+export default function ViewInventory() {
+  const [inventory, setInventory] = useState({
+    item_id: "",
+    quantity: "",
   });
 
   const { id } = useParams();
@@ -16,8 +15,8 @@ export default function ViewUser() {
   }, []);
 
   const loadUser = async () => {
-    const result = await axios.get(`http://localhost:8080/users/${id}`);
-    setUser(result.data);
+    const result = await axios.get(`http://localhost:8080/inventory/${id}`);
+    setInventory(result.data);
   };
 
   return (
@@ -28,19 +27,15 @@ export default function ViewUser() {
 
           <div className="card">
             <div className="card-header">
-              Details of user id : {user.id}
+              Details of user id : {inventory.id}
               <ul className="list-group list-group-flush">
                 <li className="list-group-item">
                   <b>Name:</b>
-                  {user.name}
+                  {inventory.item_id}
                 </li>
                 <li className="list-group-item">
                   <b>UserName:</b>
-                  {user.username}
-                </li>
-                <li className="list-group-item">
-                  <b>Email:</b>
-                  {user.email}
+                  {inventory.quantity}
                 </li>
               </ul>
             </div>

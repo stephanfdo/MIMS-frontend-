@@ -7,11 +7,13 @@ export default function AddUser() {
 
   const [user, setUser] = useState({
     name: "",
-    username: "",
     email: "",
+    password: "",
+    username: "",
+    role: "",
   });
 
-  const { name, username, email } = user;
+  const { password, username, role, name, email } = user;
 
   const onInputChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
@@ -19,7 +21,7 @@ export default function AddUser() {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    await axios.post("http://localhost:8080/user", user);
+    await axios.post("http://localhost:8080/users", user);
     navigate("/");
   };
 
@@ -30,7 +32,7 @@ export default function AddUser() {
           <h2 className="text-center m-4">Register User</h2>
 
           <form onSubmit={(e) => onSubmit(e)}>
-            <div className="mb-3">
+          <div className="mb-3">
               <label htmlFor="Name" className="form-label">
                 Name
               </label>
@@ -43,8 +45,21 @@ export default function AddUser() {
                 onChange={(e) => onInputChange(e)}
               />
             </div>
+          <div className="mb-3">
+              <label htmlFor="email" className="form-label">
+                Email
+              </label>
+              <input
+                type={"text"}
+                className="form-control"
+                placeholder="Enter your email"
+                name="email"
+                value={email}
+                onChange={(e) => onInputChange(e)}
+              />
+            </div>
             <div className="mb-3">
-              <label htmlFor="Username" className="form-label">
+              <label htmlFor="UserName" className="form-label">
                 Username
               </label>
               <input
@@ -57,17 +72,32 @@ export default function AddUser() {
               />
             </div>
             <div className="mb-3">
-              <label htmlFor="Email" className="form-label">
-                E-mail
+              <label htmlFor="Password" className="form-label">
+                Password
               </label>
               <input
-                type={"text"}
+                type={"password"}
                 className="form-control"
-                placeholder="Enter your e-mail address"
-                name="email"
-                value={email}
+                placeholder="Enter your username"
+                name="password"
+                value={password}
                 onChange={(e) => onInputChange(e)}
               />
+            </div>
+            <div className="mb-3">
+                <label htmlFor="role" className="form-label">
+                   Role
+              </label>
+              <select
+                className="form-select"
+                name="role"
+                value={role}
+                onChange={(e) => onInputChange(e)}
+              >
+                <option value="">Select Role</option>
+                <option value="user">User</option>
+                <option value="admin">Admin</option>
+              </select>
             </div>
             <button type="submit" className="btn btn-outline-primary">
               Submit

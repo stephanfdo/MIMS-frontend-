@@ -3,7 +3,7 @@ import axios from "axios";
 import { Link, useParams } from "react-router-dom";
 
 export default function Home() {
-  const [users, setUsers] = useState([]);
+  const [item, setItems] = useState([]);
 
   const { id } = useParams();
 
@@ -12,12 +12,12 @@ export default function Home() {
   }, []);
 
   const loadUsers = async () => {
-    const result = await axios.get("http://localhost:8080/users");
-    setUsers(result.data);
+    const result = await axios.get("http://localhost:8080/items");
+    setItems(result.data);
   };
 
   const deleteUser = async (id) => {
-    await axios.delete(`http://localhost:8080/users/${id}`);
+    await axios.delete(`http://localhost:8080/items/${id}`);
     loadUsers();
   };
 
@@ -29,38 +29,35 @@ export default function Home() {
             <tr>
               <th scope="col">S.N</th>
               <th scope="col">Name</th>
-              <th scope="col">Username</th>
-              <th scope="col">Email</th>
-              <th scope="col">Role</th>
-              <th scope="col">Action</th>
+              <th scope="col">Price</th>
+              <th scope="col">Item Category</th>
             </tr>
           </thead>
           <tbody>
-            {users.map((user, index) => (
+            {item.map((item, index) => (
               <tr>
                 <th scope="row" key={index}>
                   {index + 1}
                 </th>
-                <td>{user.name}</td>
-                <td>{user.username}</td>
-                <td>{user.email}</td>
-                <td>{user.role}</td>
+                <td>{item.name}</td>
+                <td>{item.price}</td>
+                <td>{item.itemCategory}</td>
                 <td>
                   <Link
                     className="btn btn-primary mx-2"
-                    to={`/viewuser/${user.id}`}
+                    to={`/viewitem/${item.id}`}
                   >
                     View
                   </Link>
                   <Link
                     className="btn btn-outline-primary mx-2"
-                    to={`/edituser/${user.id}`}
+                    to={`/edititem/${item.id}`}
                   >
                     Edit
                   </Link>
                   <button
                     className="btn btn-danger mx-2"
-                    onClick={() => deleteUser(user.id)}
+                    onClick={() => deleteUser(item.id)}
                   >
                     Delete
                   </button>

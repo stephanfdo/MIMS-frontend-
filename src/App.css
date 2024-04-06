@@ -36,3 +36,34 @@
     transform: rotate(360deg);
   }
 }
+
+.side-nav-bar {
+  height: 100%;
+  width: 200px; /* Set width according to your preference */
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #333; /* Change color as per your design */
+  padding-top: 20px; /* Adjust top padding as needed */
+  margin-top: 50px;
+}
+
+.side-nav-bar ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.side-nav-bar ul li {
+  padding: 10px 0;
+}
+
+.side-nav-bar ul li a {
+  text-decoration: none;
+  color: white; /* Change color as per your design */
+  padding: 10px;
+  display: block;
+}
+
+.side-nav-bar ul li a:hover {
+  background-color: #555; /* Change color as per your design */
+}

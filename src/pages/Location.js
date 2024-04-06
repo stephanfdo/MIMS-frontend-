@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useParams } from "react-router-dom";
 
-export default function Home() {
-  const [users, setUsers] = useState([]);
+export default function Inventory() {
+  const [location, setInventory] = useState([]);
 
   const { id } = useParams();
 
@@ -12,12 +12,18 @@ export default function Home() {
   }, []);
 
   const loadUsers = async () => {
-    const result = await axios.get("http://localhost:8080/users");
-    setUsers(result.data);
+    try {
+      const result = await axios.get("http://localhost:8080/locations");
+      console.log(result.data); // Add this line
+      setInventory(result.data);
+    } catch (error) {
+      console.error("Error loading inventory:", error);
+    }
   };
 
+  
   const deleteUser = async (id) => {
-    await axios.delete(`http://localhost:8080/users/${id}`);
+    await axios.delete(`http://localhost:8080/locations/${id}`);
     loadUsers();
   };
 
@@ -28,39 +34,33 @@ export default function Home() {
           <thead>
             <tr>
               <th scope="col">S.N</th>
-              <th scope="col">Name</th>
-              <th scope="col">Username</th>
-              <th scope="col">Email</th>
-              <th scope="col">Role</th>
-              <th scope="col">Action</th>
+              <th scope="col">Location Name</th>
+              <th scope="col">Description</th>
+              <th scope="col">Actions</th>
             </tr>
           </thead>
           <tbody>
-            {users.map((user, index) => (
-              <tr>
-                <th scope="row" key={index}>
-                  {index + 1}
-                </th>
-                <td>{user.name}</td>
-                <td>{user.username}</td>
-                <td>{user.email}</td>
-                <td>{user.role}</td>
+            {location.map((location, index) => (
+              <tr key={location.id}>
+                <th scope="row">{index + 1}</th>
+                <td>{location.name}</td>
+                <td>{location.description}</td>
                 <td>
                   <Link
                     className="btn btn-primary mx-2"
-                    to={`/viewuser/${user.id}`}
+                    to={`/viewlocation/${location.id}`}
                   >
                     View
                   </Link>
                   <Link
                     className="btn btn-outline-primary mx-2"
-                    to={`/edituser/${user.id}`}
+                    to={`/editlocation/${location.id}`}
                   >
                     Edit
                   </Link>
                   <button
                     className="btn btn-danger mx-2"
-                    onClick={() => deleteUser(user.id)}
+                    onClick={() => deleteUser(location.id)}
                   >
                     Delete
                   </button>

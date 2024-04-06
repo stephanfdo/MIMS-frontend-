@@ -2,11 +2,10 @@ import axios from "axios";
 import React, { useEffect,useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
-export default function ViewUser() {
-  const [user, setUser] = useState({
+export default function ViewInventory() {
+  const [location, setInventory] = useState({
     name: "",
-    username: "",
-    email: "",
+    description: "",
   });
 
   const { id } = useParams();
@@ -16,37 +15,33 @@ export default function ViewUser() {
   }, []);
 
   const loadUser = async () => {
-    const result = await axios.get(`http://localhost:8080/users/${id}`);
-    setUser(result.data);
+    const result = await axios.get(`http://localhost:8080/locations/${id}`);
+    setInventory(result.data);
   };
 
   return (
     <div className="container">
       <div className="row">
         <div className="col-md-6 offset-md-3 border rounded p-4 mt-2 shadow">
-          <h2 className="text-center m-4">User Details</h2>
+          <h2 className="text-center m-4">Location Details</h2>
 
           <div className="card">
             <div className="card-header">
-              Details of user id : {user.id}
+              Details of location id : {location.id}
               <ul className="list-group list-group-flush">
                 <li className="list-group-item">
                   <b>Name:</b>
-                  {user.name}
+                  {location.name}
                 </li>
                 <li className="list-group-item">
-                  <b>UserName:</b>
-                  {user.username}
-                </li>
-                <li className="list-group-item">
-                  <b>Email:</b>
-                  {user.email}
+                  <b>Description:</b>
+                  {location.description}
                 </li>
               </ul>
             </div>
           </div>
-          <Link className="btn btn-primary my-2" to={"/"}>
-            Back to Home
+          <Link className="btn btn-primary my-2" to={"/Location"}>
+            Back to Location
           </Link>
         </div>
       </div>
