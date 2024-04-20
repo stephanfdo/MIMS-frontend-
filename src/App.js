@@ -3,7 +3,7 @@ import "./App.css";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import Navbar from "./layout/Navbar";
 import Home from "./pages/Home";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import AddUser from "./users/AddUser";
 import EditUser from "./users/EditUser";
 import ViewUser from "./users/ViewUser";
@@ -28,21 +28,26 @@ import EditLocation from "./location/EditLocation";
 import ViewLocation from "./location/ViewLocation";
 import AddLocation from "./location/AddLocation";
 import Location from "./pages/Location";
+import Auth from "./layout/Auth";
+import NavigationHandler from "./NavigationHandler";
 
 
 function App() {
+
+
   return (
     <div className="App">
       <Router>
-      <SideNav/>
-        <Navbar />
+      <NavigationHandler>
         <Routes>
-          <Route exact path="/" element={<Home />} />
+          <Route exact path="/user" element={<Home />} />
           <Route exact path="/Inventory" element={<Inventory />} />
           <Route exact path="/Item" element={<Item />} />
           <Route exact path="/Supplier" element={<Supplier/>} />
           <Route exact path="/Order" element={<Order/>} />
           <Route exact path="/Location" element={<Location/>} />
+          <Route exact path="/" element={<Auth/>} />
+
 
 
 
@@ -75,6 +80,7 @@ function App() {
           <Route exact path="/viewlocation/:id" element={<ViewLocation />} />
 
         </Routes>
+        </NavigationHandler>
       </Router>
      
     </div>

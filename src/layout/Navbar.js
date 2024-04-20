@@ -43,7 +43,14 @@ export default function Navbar() {
             buttonText: "Add Item",
             link: "/additem",
           };
-        case "/":
+        case "/user":
+        return {
+          title: "Users",
+          buttonText: "Add User",
+          link: "/adduser",
+        };
+
+        case "/adduser":
         return {
           title: "Users",
           buttonText: "Add User",

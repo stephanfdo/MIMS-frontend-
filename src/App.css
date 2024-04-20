@@ -45,7 +45,7 @@
   left: 0;
   background-color: #333; /* Change color as per your design */
   padding-top: 20px; /* Adjust top padding as needed */
-  margin-top: 50px;
+  margin-top: 55px;
 }
 
 .side-nav-bar ul {
@@ -66,4 +66,53 @@
 
 .side-nav-bar ul li a:hover {
   background-color: #555; /* Change color as per your design */
+}
+.Auth-form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  background-image:url("bg.jpg");/* Set background color to blue */
+  background-repeat: no-repeat;
+  background-size:cover;
+}
+
+.Auth-form {
+  width: 420px;
+  box-shadow: rgb(0 0 0 / 16%) 1px 1px 10px;
+  padding-top: 30px;
+  padding-bottom: 20px;
+  border-radius: 8px;
+  background-color: white;
+}
+
+.Auth-form-content {
+  padding-left: 12%;
+  padding-right: 12%;
+}
+
+.App-title {
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  color:  rgb(13, 110, 253); /* Set text color to white */
+}
+
+.Auth-form-title {
+  text-align: center;
+  margin-bottom: 1em;
+  font-size: 24px;
+  color: rgb(34, 34, 34);
+  font-weight: 800;
+}
+
+label {
+  font-size: 14px;
+  font-weight: 600;
+  color: rgb(34, 34, 34);
+}
+
+.App-submit-btn {
+  background-color: blue; /* Set button background color to blue */
 }

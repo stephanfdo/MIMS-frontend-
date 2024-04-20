@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function AddOrder() {
@@ -8,8 +8,20 @@ export default function AddOrder() {
   const [order, setOrder] = useState({
     itemId: "", // Change to "itemId" for consistency
     quantity: "",
-    
   });
+
+  const [itemList, setItemList] = useState([]);
+
+  useEffect(() => {
+    // Fetch items from backend API and update the itemList state
+    axios.get("http://localhost:8080/items")
+      .then(response => {
+        setItemList(response.data);
+      })
+      .catch(error => {
+        console.error("Error fetching items:", error);
+      });
+  }, []);
 
   const { itemId, quantity } = order; // Change to "itemId" for consistency
 
@@ -31,24 +43,27 @@ export default function AddOrder() {
 
           <form onSubmit={(e) => onSubmit(e)}>
             <div className="mb-3">
-              <label htmlFor="Name" className="form-label">
-                Item ID
+              <label htmlFor="itemId" className="form-label">
+                Item
               </label>
-              <input
-                type={"text"}
+              <select
                 className="form-control"
-                placeholder="Enter item ID"
                 name="itemId" // Change to "itemId" for consistency
-                value={itemId} // Change to "itemId" for consistency
+                value={itemId}
                 onChange={(e) => onInputChange(e)}
-              />
+              >
+                <option value="">Select Item</option>
+                {itemList.map(item => (
+                  <option key={item.id} value={item.id}>{item.id}-{item.name}</option>
+                ))}
+              </select>
             </div>
             <div className="mb-3">
-              <label htmlFor="email" className="form-label">
+              <label htmlFor="quantity" className="form-label">
                 Quantity
               </label>
               <input
-                type={"text"}
+                type="text"
                 className="form-control"
                 placeholder="Enter the quantity"
                 name="quantity"
